@@ -8,6 +8,7 @@ int main()
     int hour, minute, second;
     printf("Please, set a particular time: ");
     scanf("%d%d%d", &hour, &minute, &second);
+    printf();
 
     if (hour > 23 || minute > 60 || second > 60)
     {
