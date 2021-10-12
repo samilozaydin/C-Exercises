@@ -6,7 +6,6 @@ int altKumeleriAsalMi(int sayi);
 
 int main()
 {
-
     int say = 7331;
     printf("%d", altKumeleriAsalMi(say));
 
