@@ -1,4 +1,6 @@
 #include <stdio.h>
+void findMax(int arr[], int size);
+void findMin(int arr[], int size);
 
 int main()
 {
@@ -39,7 +41,7 @@ void findMax(int arr[], int size)
     }
     printf("\n%d", max2);
 }
-void findMin(int[] arr, int size)
+void findMin(int arr[], int size)
 {
 
     int i, j;
