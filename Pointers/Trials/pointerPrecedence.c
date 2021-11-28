@@ -20,10 +20,10 @@ int main()
     printf("(*p)++= %p\n", p);
     int *q = &i;
     printf("i= %d\n", i);
-
+    int *z = q;
     printf("\n*q++= %p\n", q);
     printf("*q++= %d\n", *q++);
-    printf("*q++= %p\n", q);
+    printf("*q++= %p and %d\n", q, q - z);
     printf("*q++= %d\n", *q++);
 
     printf("i= %d\n", i);
