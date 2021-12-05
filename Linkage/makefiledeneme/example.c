@@ -2,6 +2,6 @@
 
 int main()
 {
-
+    printf("run");
     return 0;
 }
