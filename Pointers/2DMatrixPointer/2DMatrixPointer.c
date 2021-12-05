@@ -12,6 +12,7 @@ int main(void)
     printf("ptr %p\n", ptr);
     printf("&ptr %p\n", &ptr);
 
+    printf("it is");
     printf("arr2 %p\n", arr2);
     printf("&arr2 %p\n", &arr2);
 
