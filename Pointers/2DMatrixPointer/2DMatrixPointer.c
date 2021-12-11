@@ -7,12 +7,16 @@ int main(void)
     char *ch[3] = {"hello", "world00000", "wonderful"};
     char ar[2] = {'a', 'b'};
     int arr[2] = {6, 8};
-    int *arr2;
+    char dene[2][2] = {{'a', 'b'}, {'c', 'd'}};
+    char *deneme = dene[1];
+    int *arr2 = arr;
     char **ptr = ch;
-    printf("ptr %p\n", ptr);
-    printf("&ptr %p\n", &ptr);
+    //printf("ptr %p\n", ptr);
+    //printf("&ptr %p\n", &ptr);
+    printf(" dene[1] %p \n", dene[1]);
+    printf(" deneme %p \n", deneme);
 
-    printf("it is");
+    printf("it is\n");
     printf("arr2 %p\n", arr2);
     printf("&arr2 %p\n", &arr2);
 

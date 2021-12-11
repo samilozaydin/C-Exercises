@@ -9,6 +9,6 @@ int main()
     int **matrisal1;
     int **matrisal2;
 
-    operasyon1(matrisal1, matrisal2, 1, 25, 9);
+    operasyon1(matrisal1, matrisal2, 0, 25, 9);
     return 0;
 }
