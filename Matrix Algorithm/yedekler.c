@@ -50,3 +50,13 @@ void cozumMatrisDoldur(int *tempMatris, int *matris, int *cozumMatris, int index
     printf("%d. hucre tamamlandi\n", index + 1);
     *(cozumMatris + index) = sum;
 }
+//Bu alan cok fazla oynanmamis temporarymatrisolusturma fonksiyonu. Degisen seyler cozumMatrisRw eklenmesi ve (position / cozumMatrisRw) kısmında matris2Rw yerine eklenmesi. Duruma gore buradan oyna.
+void temporaryMatrisOlustur(int *matris, int *ptrMatris1, int matris1Rw, int matris2Rw, int position, int cozumMatrisRw)
+{
+    int j;
+    int size = matris2Rw * matris2Rw;
+    for (j = 0; j < size; j++)
+    {
+        *(matris + j) = *(ptrMatris1 + position + j + (matris1Rw - matris2Rw) * (j / matris2Rw) + (position / cozumMatrisRw) * (matris1Rw - matris2Rw));
+    }
+}

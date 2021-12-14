@@ -59,6 +59,10 @@ int **operasyon1(int **matris1, int **matris2, int islemTipi, int matris1Size, i
     {
         notExpandedMatrisOperation(matris1, matris2, cozumMatris, matris1Size, matris2Size, cozumMatrisSize);
     }
+    else if (islemTipi == 1)
+    {
+        ExpandedMatrisOperation(matris1, matris2, cozumMatris, matris1Size, matris2Size, cozumMatrisSize);
+    }
 
     //matrisYazdirma(cozumMatris, cozumMatrisSize);
     matrisFree(cozumMatris, cozumMatrisSize);
@@ -79,7 +83,7 @@ int **operasyon1(int **matris1, int **matris2, int islemTipi, int matris1Size, i
     return NULL;
 }
 void matrisYazdirma(int **matris, int size)
-{
+{ //Size boyutu 7x7'nin 7 si olarak gelir. 49 degil.
     int i, j;
     for (i = 0; i < size; i++) //SIL
     {
@@ -99,6 +103,7 @@ void matrisFree(int **matris, int size)
 }
 int **matrisOlustur(int size)
 {
+    //Gelen size'lar 7x7'nin sadece 7'sidir. 49 degil.
     int **matris3 = (int **)malloc(size * sizeof(int *)); //Sadece matris[0] free edilse yeterli
     *(matris3) = (int *)calloc(size * size, sizeof(int));
     int i;
@@ -116,9 +121,7 @@ void notExpandedMatrisOperation(int **matris1, int **matris2, int **cozumMatris,
     int matris2Rw = sqrt(matris2Size);
     int cozumMatrisSizeOf = cozumMatrisSize * cozumMatrisSize;
     int sum = 0;
-    int counter = 0;
-    int i, j, k;
-    int position = 0, positionCol = 0;
+    int i;
 
     int *ptrMatris1 = *matris1;
     int *ptrMatris2 = *matris2;
@@ -127,20 +130,20 @@ void notExpandedMatrisOperation(int **matris1, int **matris2, int **cozumMatris,
     int *temporaryMatris = (int *)malloc(sizeof(int) * matris2Size); //gecici olarak olusturulan her bir cozumMatris hucresindeki elemanı olusturmaya yardimci olacak matris.
     for (i = 0; i < cozumMatrisSizeOf; i++)
     {
-        temporaryMatrisOlustur(temporaryMatris, ptrMatris1, matris1Rw, matris2Rw, i);
-        cozumMatrisDoldur(temporaryMatris, ptrMatris2, ptrCozumMatris, i, cozumMatrisSizeOf);
+        temporaryMatrisOlustur(temporaryMatris, ptrMatris1, matris1Rw, matris2Rw, i, cozumMatrisSize);
+        cozumMatrisDoldur(temporaryMatris, ptrMatris2, ptrCozumMatris, i, matris2Size);
     }
 
     matrisYazdirma(cozumMatris, cozumMatrisSize);
     free(temporaryMatris);
 }
-void temporaryMatrisOlustur(int *matris, int *ptrMatris1, int matris1Rw, int matris2Rw, int position)
+void temporaryMatrisOlustur(int *matris, int *ptrMatris1, int matris1Rw, int matris2Rw, int position, int cozumMatrisRw)
 {
     int j;
     int size = matris2Rw * matris2Rw;
     for (j = 0; j < size; j++)
     {
-        *(matris + j) = *(ptrMatris1 + position + j + (matris1Rw - matris2Rw) * (j / matris2Rw) + (position / matris2Rw) * (matris1Rw - matris2Rw));
+        *(matris + j) = *(ptrMatris1 + position + j + (matris1Rw - matris2Rw) * (j / matris2Rw) + (position / cozumMatrisRw) * (matris2Rw - 1));
     }
 }
 void temporaryMatrisYazdir(int *point, int size)
@@ -154,6 +157,7 @@ void temporaryMatrisYazdir(int *point, int size)
             printf("\n");
         }
     }
+    printf("Simdiki bitti\n");
 }
 void cozumMatrisDoldur(int *tempMatris, int *matris, int *cozumMatris, int index, int size)
 {
@@ -161,7 +165,62 @@ void cozumMatrisDoldur(int *tempMatris, int *matris, int *cozumMatris, int index
     int i;
     for (i = 0; i < size; i++)
     {
+        printf("%d * %d = %d \n", *(tempMatris + i), *(matris + i), *(tempMatris + i) * *(matris + i));
         sum += *(tempMatris + i) * *(matris + i);
     }
+    printf("sum = %d", sum);
+    printf("\n\n");
+    printf("%d. hucre tamamlandi\n", index + 1);
     *(cozumMatris + index) = sum;
+}
+void ExpandedMatrisOperation(int **matris1, int **matris2, int **cozumMatris, int matris1Size, int matris2Size, int cozumMatrisSize) //matris 1 ve matris 2 tam kare halinde, cozum matris ise tam kare halinde olmadan yollanir. 3x3 ise cozumMatrisSize 3 olur.
+{
+    int matris1Rw = sqrt(matris1Size);
+    int matris2Rw = sqrt(matris2Size);
+    int cozumMatrisSizeOf = cozumMatrisSize * cozumMatrisSize;
+    int sum = 0;
+    int i;
+
+    int *ptrMatris2 = *matris2;
+    int *ptrCozumMatris = *cozumMatris;
+
+    int expandedMatrisSizeOf = matris1Rw + matris2Rw - 1;
+    int expandedMatrisSize = expandedMatrisSizeOf * expandedMatrisSizeOf;
+
+    int **expandedMatris = matrisOlustur(expandedMatrisSizeOf);
+    expandedMatrisDoldur(expandedMatris, matris1, expandedMatrisSize, matris1Size);
+    matrisYazdirma(expandedMatris, expandedMatrisSizeOf);
+    printf("-----------------------------------------\n");
+    int *ptrExpandedMatris = *expandedMatris;
+    int *temporaryMatris = (int *)malloc(sizeof(int) * matris2Size); //gecici olarak olusturulan her bir cozumMatris hucresindeki elemanı olusturmaya yardimci olacak matris.
+    for (i = 0; i < cozumMatrisSizeOf; i++)
+    {
+        temporaryMatrisOlustur(temporaryMatris, ptrExpandedMatris, expandedMatrisSizeOf, matris2Rw, i, cozumMatrisSize);
+        temporaryMatrisYazdir(temporaryMatris, matris2Rw);
+        cozumMatrisDoldur(temporaryMatris, ptrMatris2, ptrCozumMatris, i, matris2Size);
+    }
+
+    matrisYazdirma(cozumMatris, cozumMatrisSize);
+
+    matrisFree(expandedMatris, expandedMatrisSizeOf);
+    free(temporaryMatris);
+}
+void expandedMatrisDoldur(int **expandedMatris, int **matris1, int expandedMatrisSize, int matris1Size)
+{
+    int matris1Rw = sqrt(matris1Size);
+    int expandedMatrisSizeRw = sqrt(expandedMatrisSize);
+    int beginingAmount = expandedMatrisSizeRw - matris1Rw;
+    int beginFrom = beginingAmount / 2;
+    //SILINEBILIR YORUM
+    // printf("expandedMatrisSizeRw:%d\n beginingAmount: %d\n matris1size: %d\nbeginFrom: %d\n", expandedMatrisSizeRw, beginingAmount, matris1Rw, beginFrom);
+    int i, j;
+    for (i = beginFrom; i < matris1Rw + beginFrom; i++)
+    {
+        for (j = beginFrom; j < matris1Rw + beginFrom; j++)
+        {
+            *(*(expandedMatris + i) + j) = *(*(matris1 + i - beginFrom) + j - beginFrom);
+        }
+    }
+    //SILINEBILIR YORUM
+    // matrisYazdirma(expandedMatris, expandedMatrisSizeRw);
 }
