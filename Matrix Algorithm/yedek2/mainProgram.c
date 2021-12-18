@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <math.h>
 #include "matrisoperations.h"
-#include <stdlib.h>
-#include <time.h>
-
 int inputKontrol(int matris1Size, int matris2Size, int islemTipi);
 
 extern int CozumMatrisSize;
 
 int main()
 {
-    srand(time(NULL));
     int matris1Size;
     int matris2Size;
     int islemTipi;
@@ -63,7 +59,7 @@ int inputKontrol(int matris1Size, int matris2Size, int islemTipi)
         printf("matrislerin boyutu 3 ve 3'ten buyuk olmalidir\n");
         return 1;
     }
-    if ((matris1Size % 2 == 0) || (matris2Size % 2 == 0))
+    if ((matris1Size % 2 == 0) && (matris2Size % 2 == 0))
     {
         printf("matrislerin boyutlari tek sayi olmalidir\n");
         return 1;

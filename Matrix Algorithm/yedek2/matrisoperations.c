@@ -72,15 +72,13 @@ int **matrisOlustur(int size)
 }
 void matrisDoldur(int **matris, int sizeRw)
 {
+    srand(time(NULL));
     int i, j;
     for (i = 0; i < sizeRw; i++)
     {
         for (j = 0; j < sizeRw; j++)
         {
-            if (rand() % 4 == 0)
-                matris[i][j] = (rand() % 100) * (-1);
-            else
-                matris[i][j] = (rand() % 100);
+            matris[i][j] = (rand() % 100);
         }
     }
 }
@@ -110,7 +108,7 @@ void temporaryMatrisOlustur(int *matris, int *ptrMatris1, int matris1Rw, int mat
     int size = matris2Rw * matris2Rw;
     for (j = 0; j < size; j++)
     {
-        *(matris + j) = *(ptrMatris1 + position + j + (matris1Rw - matris2Rw) * (j / matris2Rw) + (position / (matris1Rw - matris2Rw + 1)) * (matris2Rw - 1));
+        *(matris + j) = *(ptrMatris1 + position + j + (matris1Rw - matris2Rw) * (j / matris2Rw) + (position / cozumMatrisRw) * (matris2Rw - 1));
     }
 }
 void temporaryMatrisYazdir(int *point, int size)
@@ -147,23 +145,20 @@ void ExpandedMatrisOperation(int **matris1, int **matris2, int **cozumMatris, in
     int *ptrMatris2 = *matris2;
     int *ptrCozumMatris = *cozumMatris;
 
-    int expandedMatrisSizeOf = matris1Rw + 2;
+    int expandedMatrisSizeOf = matris1Rw + matris2Rw - 1;
     int expandedMatrisSize = expandedMatrisSizeOf * expandedMatrisSizeOf;
-    int loop = (expandedMatrisSizeOf - matris2Rw + 1) * (1 + expandedMatrisSizeOf - matris2Rw);
-    int sqrtLoop = sqrt(loop);
 
     int **expandedMatris = matrisOlustur(expandedMatrisSizeOf);
     expandedMatrisDoldur(expandedMatris, matris1, expandedMatrisSize, matris1Size);
     printf("\nIslem yapilacak matrisin icerigi: \n");
     matrisYazdirma(expandedMatris, expandedMatrisSizeOf);
     printf("-----------------------------------------\n");
-
     int *ptrExpandedMatris = *expandedMatris;
     int *temporaryMatris = (int *)malloc(sizeof(int) * matris2Size); //gecici olarak olusturulan her bir cozumMatris hucresindeki elemanı olusturmaya yardimci olacak matris.
-    for (i = 0; i < loop; i++)
+    for (i = 0; i < cozumMatrisSizeOf; i++)
     {
         temporaryMatrisOlustur(temporaryMatris, ptrExpandedMatris, expandedMatrisSizeOf, matris2Rw, i, cozumMatrisSize);
-        cozumMatrisDoldur(temporaryMatris, ptrMatris2, ptrCozumMatris, (i + (i / sqrtLoop) * (cozumMatrisSize - sqrtLoop)), matris2Size);
+        cozumMatrisDoldur(temporaryMatris, ptrMatris2, ptrCozumMatris, i, matris2Size);
     }
     matrisFree(expandedMatris, expandedMatrisSizeOf);
     free(temporaryMatris);
@@ -172,7 +167,8 @@ void expandedMatrisDoldur(int **expandedMatris, int **matris1, int expandedMatri
 {
     int matris1Rw = sqrt(matris1Size);
     int expandedMatrisSizeRw = sqrt(expandedMatrisSize);
-    int beginFrom = (expandedMatrisSizeRw - matris1Rw) / 2;
+    int beginingAmount = expandedMatrisSizeRw - matris1Rw;
+    int beginFrom = beginingAmount / 2;
     int i, j;
     for (i = beginFrom; i < matris1Rw + beginFrom; i++)
     {
