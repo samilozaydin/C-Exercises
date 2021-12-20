@@ -9,7 +9,6 @@ int CozumMatrisSize;
 
 int **operasyon1(int **matris1, int **matris2, int islemTipi, int matris1Size, int matris2Size)
 {
-
     int cozumMatrisSize;
     int matris1Rw = sqrt(matris1Size);
     int matris2Rw = sqrt(matris2Size);
@@ -78,7 +77,7 @@ void matrisDoldur(int **matris, int sizeRw)
     {
         for (j = 0; j < sizeRw; j++)
         {
-            matris[i][j] = (rand() % 100);
+            matris[i][j] = (rand() % 10) + 1;
         }
     }
 }

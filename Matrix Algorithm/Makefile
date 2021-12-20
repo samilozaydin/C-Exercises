@@ -1,4 +1,4 @@
-all:matrisProgram	run
+all:matrisProgram	
 
 matrisProgram:mainProgram.o	matrisoperations.o
 	gcc	mainProgram.o	matrisoperations.o	-o	project
@@ -8,5 +8,3 @@ matrisoperations.o:matrisoperations.c	matrisoperations.h
 	gcc	-c	matrisoperations.c
 clean:
 	del	*.o	project.exe
-run:
-	project.exe

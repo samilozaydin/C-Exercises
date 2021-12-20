@@ -1,3 +1,11 @@
+/*
+* @file matrisoperations.h
+* @description This program is a matrix algorithm.
+* @assignment Project 1
+* @date 11.12.2021
+* @author Samil Bilal OZAYDIN samilbilal.ozaydin@stu.fsm.edu.tr
+*/
+
 #ifndef matrisoperations
 #define matrisoperations
 

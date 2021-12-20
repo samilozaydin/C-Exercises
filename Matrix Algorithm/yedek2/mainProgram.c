@@ -7,6 +7,8 @@ extern int CozumMatrisSize;
 
 int main()
 {
+
+    srand(time(NULL));
     int matris1Size;
     int matris2Size;
     int islemTipi;

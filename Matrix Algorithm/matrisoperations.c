@@ -1,3 +1,11 @@
+/*
+* @file matrisoperations.c
+* @description This program is a matrix algorithm.
+* @assignment Project 1
+* @date 11.12.2021
+* @author Samil Bilal OZAYDIN samilbilal.ozaydin@stu.fsm.edu.tr
+*/
+
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -77,10 +85,7 @@ void matrisDoldur(int **matris, int sizeRw)
     {
         for (j = 0; j < sizeRw; j++)
         {
-            if (rand() % 4 == 0)
-                matris[i][j] = (rand() % 100) * (-1);
-            else
-                matris[i][j] = (rand() % 100);
+            matris[i][j] = (rand() % 10) + 1;
         }
     }
 }
@@ -154,7 +159,7 @@ void ExpandedMatrisOperation(int **matris1, int **matris2, int **cozumMatris, in
 
     int **expandedMatris = matrisOlustur(expandedMatrisSizeOf);
     expandedMatrisDoldur(expandedMatris, matris1, expandedMatrisSize, matris1Size);
-    printf("\nIslem yapilacak matrisin icerigi: \n");
+    printf("\nGenisletilmis matrisin icerigi: \n");
     matrisYazdirma(expandedMatris, expandedMatrisSizeOf);
     printf("-----------------------------------------\n");
 
