@@ -9,7 +9,8 @@ int main(int argc, char *argv[])
     char *p;
     p = argv[1];
     printf("%s \n", p);
-    FILE *dosya = fopen(p, "a");
+    FILE *dosya = fopen(p, "r+");
+    printf("%p", dosya);
     if (dosya == NULL)
     {
         printf("kapatildi.");

@@ -16,7 +16,8 @@ void say(char *des, int *frekans, int size)
 {
     char ch;
     FILE *dosya;
-    if (dosya = fopen(des, "r") == NULL)
+    printf("%s", des);
+    if ((dosya = fopen(des, "r")) == NULL)
     {
         printf("dosya acilmadi");
         exit(1);
@@ -25,13 +26,14 @@ void say(char *des, int *frekans, int size)
     {
         while (!(feof(dosya)))
         {
-            fscanf(dosya, "%c", ch);
+            // ch = fgetc(dosya);
+            fscanf(dosya, "%c", &ch);
             frekans[ch - 'a']++;
         }
     }
     for (int i = 0; i < size; i++)
     {
-        printf("%c'den su kadar var :%d\n", (char)('a' + i), frekans[i]);
+        printf("%c'den su kadar var :%d\n", ((char)('a' + i)), frekans[i]);
     }
 
     fclose(dosya);
