@@ -58,22 +58,23 @@ int main()
             if (operasyon == '+')
             {
                 int sumSize = 0;
+                char notation = '+';
                 sum = sumFile(num1, num2, num1Size, num2Size, &sumSize);
+                printIntoFile(sum, sumSize, notation);
+
                 printf("Toplama islemi sonucu : ");
-                displayNumber(sum, sumSize);
+                readResult();
             }
             else if (operasyon == '-')
             {
                 int substractSize = 0;
-                char notation;
+                char notation = '+';
                 substract = substractFile(num1, num2, num1Size, num2Size, &substractSize, &notation);
                 uint8_t *nonZeroSubstract = removeZeros(substract, &substractSize);
                 printf("Cikarma islemi sonucu : ");
-                if (notation == '-')
-                {
-                    printf("%c", notation);
-                }
-                displayNumber(nonZeroSubstract, substractSize);
+                printIntoFile(nonZeroSubstract, substractSize, notation);
+
+                readResult();
             }
             break;
         case '5':

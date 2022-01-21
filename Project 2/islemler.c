@@ -269,3 +269,45 @@ void displayNumber(uint8_t *num, int numSize)
         printf("%d", *(num + i));
     }
 }
+void printIntoFile(uint8_t *result, int resultSize, char notation)
+{
+    FILE *file;
+    int i = 0;
+    if ((file = fopen("sonuclar.txt", "w+")) == NULL)
+    {
+        printf("sonuclar.txt olusturulamadi.");
+    }
+    else
+    {
+        if (notation == '-')
+        {
+            fprintf(file, "%c", notation);
+        }
+        while (i != resultSize)
+        {
+            //fwrite((result + i), sizeof(uint8_t), 1, file);
+            fprintf(file, "%u", *(result + i));
+            i++;
+        }
+    }
+    fclose(file);
+}
+void readResult()
+{
+    FILE *file;
+    int i = 0;
+    char num;
+    if ((file = fopen("sonuclar.txt", "r")) == NULL)
+    {
+        printf("sonuclar.txt olusturulamadi.");
+    }
+    else
+    {
+        while (!(feof(file)))
+        {
+            num = fgetc(file);
+            printf("%c", num);
+        }
+    }
+    fclose(file);
+}
