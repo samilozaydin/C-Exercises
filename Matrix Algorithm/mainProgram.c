@@ -91,7 +91,7 @@ int sendParameter(char **arr, int size, int index)
     int send = 0;
     for (i = 0; *(*(arr + index) + i) != '\0'; i++)
     {
-        if (*(*(arr + index) + i) - '0' <= ('9' - '0') && *(*(arr + index) + i) - '0' <= ('9' - '0') >= 0)
+        if (*(*(arr + index) + i) - '0' <= ('9' - '0') && *(*(arr + index) + i) - '0' >= 0)
         {
             send = send * 10 + (int)(*(*(arr + index) + i) - '0');
         }
