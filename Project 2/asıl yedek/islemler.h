@@ -1,10 +1,3 @@
-/*
-* @file islemler.h
-* @description This program make summation and substraction with big numbers.
-* @assignment Project 2
-* @date 23.01.2021
-* @author Samil Bilal OZAYDIN samilbilal.ozaydin@stu.fsm.edu.tr
-*/
 #include <stdint.h>
 #include <stdio.h>
 

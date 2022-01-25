@@ -1,10 +1,3 @@
-/*
-* @file main.c
-* @description This program make summation and substraction with big numbers.
-* @assignment Project 2
-* @date 23.01.2021
-* @author Samil Bilal OZAYDIN samilbilal.ozaydin@stu.fsm.edu.tr
-*/
 #include <stdio.h>
 #include <stdint.h>
 #include "islemler.h"
@@ -13,7 +6,8 @@ void menu(char *islem);
 
 int main()
 {
-    char islem[3];
+
+    char *islem;
     char operasyon = '+';
     menu(islem);
 
@@ -26,13 +20,13 @@ int main()
     uint8_t *sum = NULL;
     uint8_t *substract = NULL;
 
-    int controlVar = 0;
-    int *p = &controlVar;
+    int control = 0;
     while (1)
     {
         switch (*islem)
         {
         case '1':
+            control = 1;
             printf("\n***********************\n");
             printf("1.sayinin dosya adini giriniz:\n");
             //  char num1s[101];
@@ -40,16 +34,15 @@ int main()
             printf("2.sayinin dosya adini giriniz:\n");
             //  char num2s[101];
             // scanf("%s",num2s);
-            *p = 1;
-            char num1c[] = "sayideneme.txt";
+            char num1c[] = "sayi2.txt";
             num1 = readFile(num1c, &num1Size);
 
-            char num2c[] = "sayideneme2.txt";
+            char num2c[] = "sayi1.txt";
             num2 = readFile(num2c, &num2Size);
             printf("Dosyalar basariyla okundu.\n");
             break;
         case '2':
-            if (controlVar == 1)
+            if (control == 1)
             {
                 printf("\n***********************\n\n");
                 printf("1.sayi= ");
@@ -75,7 +68,7 @@ int main()
 
             break;
         case '4':
-            if (controlVar == 1)
+            if (control == 1)
             {
                 if (operasyon == '+')
                 {
@@ -89,6 +82,7 @@ int main()
                     printf("Toplama islemi sonucu : ");
                     readResult();
                 }
+
                 else if (operasyon == '-')
                 {
                     int substractSize = 0;
@@ -122,6 +116,40 @@ int main()
         printf("Islem giriniz: ");
         scanf("%s", islem);
     }
+
+    /* uint8_t *num1 = NULL;
+    int num1Size = 0;
+    char num1c[] = "sayi1.txt";
+    num1 = readFile(num1c, &num1Size);
+
+    uint8_t *num2 = NULL;
+    int num2Size = 0;
+    char num2c[] = "sayi2.txt";
+    num2 = readFile(num2c, &num2Size);
+
+    int sumSize = 0;
+    uint8_t *sum = sumFile(num1, num2, num1Size, num2Size, &sumSize);
+    printf("Toplama islemi sonucu : ");
+    displayNumber(sum, sumSize);
+    printf("\n***********************\n");
+
+    int substractSize = 0;
+    char notation;
+    uint8_t *substract = substractFile(num1, num2, num1Size, num2Size, &substractSize, &notation);
+    printf("\n***********************\n");
+    printf("Cikarma islemi raw sonucu : ");
+
+    displayNumber(substract, substractSize);
+    printf("\n***********************\n");
+
+    uint8_t *nonZeroSubstract = removeZeros(substract, &substractSize);
+    printf("Cikarma islemi sonucu : ");
+    if (notation == '-')
+    {
+        printf("%c", notation);
+    }
+    displayNumber(nonZeroSubstract, substractSize);
+    printf("\n***********************\n");*/
 
     free(substract);
     free(sum);
