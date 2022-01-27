@@ -7,6 +7,9 @@ int main()
     char **ptr;
     ptr = ch;
 
+    char **ptr2;
+    ptr2 = ch;
+
     printf("ch = %p\n", ch);
     printf("ch+1 = %p\n", ch + 1);
 
