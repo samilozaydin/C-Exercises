@@ -9,6 +9,7 @@ int hasEmptySpace(char **);
 void playerMove(char **, char);
 void computerMove(char **, char);
 void printWinner(char);
+int minimax(char **, int);
 
 int main()
 {
@@ -195,6 +196,54 @@ void computerMove(char **board, char move)
     else
     {
         printWinner(' ');
+    }
+
+    int i, j;
+    int row, col;
+    int score;
+    int bestscore = -100;
+
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            if (board[i][j] == ' ')
+            {
+                board[i][j] = move;
+                score = minimax(board, 1);
+                board[i][j] = ' ';
+                if (score > bestscore)
+                {
+                    bestscore = score;
+                    row = i;
+                    col = j;
+                }
+            }
+        }
+    }
+    board[row][col] = move;
+}
+int minimax(char **board, int currentPlayer)
+{
+    if (isWin(board) == 2)
+    {
+        return 1;
+    }
+    else if (isWin(board) == 1)
+    {
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+
+    int i, j;
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+        }
     }
 }
 void printWinner(char winner)
