@@ -17,17 +17,49 @@ int main()
     char const PLAYER = 'X';
     char const COMPUTER = 'O';
     char winner = ' ';
+    char *pBoard[3];
+    pBoard[0] = board[0];
+    pBoard[1] = board[1];
+    pBoard[2] = board[2];
+    /* printf("f%cf\n", *(*(pBoard) + 1));
+    printf("d%cf\n", *(*(pBoard + 1) + 1));
+    printf("z%cf\n", *(*(pBoard + 2) + 1));*/
 
-    while (hasEmptySpace(board) != 0 && winner == ' ')
+    while (hasEmptySpace(pBoard) != 0 && winner == ' ')
     {
-        printBoard(board);
+        printBoard(pBoard);
 
-        playerMove(board, PLAYER);
-        if (isWin(board) == 2)
+        playerMove(pBoard, PLAYER);
+        if (isWin(pBoard) == 2)
+        {
+            //   printf("\nGELDIM\n");
+
+            winner = 'X';
+        }
+        else if (isWin(pBoard) == 1)
+        {
+            //   printf("\nGELDIMmmm\n");
+
+            winner = 'O';
+        }
+        else
+        {
+            // printf("\nGELDIM\n");
+
+            winner = ' ';
+        }
+        if (hasEmptySpace(pBoard) == 0 && winner == ' ')
+        {
+            break;
+        }
+        // printBoard(pBoard);
+
+        computerMove(pBoard, COMPUTER);
+        if (isWin(pBoard) == 2)
         {
             winner = 'X';
         }
-        else if (isWin(board) == 1)
+        else if (isWin(pBoard) == 1)
         {
             winner = 'O';
         }
@@ -35,29 +67,15 @@ int main()
         {
             winner = ' ';
         }
-        if (hasEmptySpace(board) != 0 && winner == ' ')
+        if (hasEmptySpace(pBoard) == 0 && winner == ' ')
         {
             break;
         }
-
-        computerMove(board, COMPUTER);
-        if (isWin(board) == 2)
-        {
-            winner = 'X';
-        }
-        else if (isWin(board) == 1)
-        {
-            winner = 'O';
-        }
-        else
-        {
-            winner = ' ';
-        }
-        if (hasEmptySpace(board) != 0 && winner == ' ')
-        {
-            break;
-        }
+        // printBoard(pBoard);
     }
+    printBoard(pBoard);
+    printWinner(winner);
+
     return 0;
 }
 void printBoard(char **broad)
@@ -69,6 +87,7 @@ void printBoard(char **broad)
         if (i != 2)
             printf("\n----------------------------------------------\n");
     }
+    printf("\n");
 }
 void createBoard(char **board)
 {
@@ -81,7 +100,7 @@ void createBoard(char **board)
         }
     }
     printf("Board is resetted.\n");
-    printBroad(board);
+    printBoard(board);
 }
 int isWin(char **board)
 {
@@ -181,7 +200,7 @@ void playerMove(char **board, char move)
 }
 void computerMove(char **board, char move)
 {
-    srand(time(NULL));
+    /* srand(time(NULL));
     int x, y;
 
     if (hasEmptySpace(board))
@@ -196,7 +215,7 @@ void computerMove(char **board, char move)
     else
     {
         printWinner(' ');
-    }
+    }*/
 
     int i, j;
     int row, col;
@@ -239,11 +258,50 @@ int minimax(char **board, int currentPlayer)
     }
 
     int i, j;
-    for (i = 0; i < 3; i++)
+    int score;
+    int bestscore;
+
+    if (currentPlayer == 1)
     {
-        for (j = 0; j < 3; j++)
+        bestscore = 100;
+        for (i = 0; i < 3; i++)
         {
+            for (j = 0; j < 3; j++)
+            {
+                if (board[i][j] == ' ')
+                {
+                    board[i][j] = 'X';
+                    score = minimax(board, 2);
+                    board[i][j] = ' ';
+                    if (score < bestscore)
+                    {
+                        bestscore = score;
+                    }
+                }
+            }
         }
+        return bestscore;
+    }
+    else
+    {
+        bestscore = -100;
+        for (i = 0; i < 3; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                if (board[i][j] == ' ')
+                {
+                    board[i][j] = 'O';
+                    score = minimax(board, 1);
+                    board[i][j] = ' ';
+                    if (score > bestscore)
+                    {
+                        bestscore = score;
+                    }
+                }
+            }
+        }
+        return bestscore;
     }
 }
 void printWinner(char winner)
