@@ -21,10 +21,6 @@ int main()
     pBoard[0] = board[0];
     pBoard[1] = board[1];
     pBoard[2] = board[2];
-    /* printf("f%cf\n", *(*(pBoard) + 1));
-    printf("d%cf\n", *(*(pBoard + 1) + 1));
-    printf("z%cf\n", *(*(pBoard + 2) + 1));*/
-
     while (hasEmptySpace(pBoard) != 0 && winner == ' ')
     {
         printBoard(pBoard);
@@ -32,36 +28,29 @@ int main()
         playerMove(pBoard, PLAYER);
         if (isWin(pBoard) == 2)
         {
-            //   printf("\nGELDIM\n");
-
-            winner = 'X';
+            winner = 'O';
         }
         else if (isWin(pBoard) == 1)
         {
-            //   printf("\nGELDIMmmm\n");
-
-            winner = 'O';
+            winner = 'X';
         }
         else
         {
-            // printf("\nGELDIM\n");
-
             winner = ' ';
         }
         if (hasEmptySpace(pBoard) == 0 && winner == ' ')
         {
             break;
         }
-        // printBoard(pBoard);
 
         computerMove(pBoard, COMPUTER);
         if (isWin(pBoard) == 2)
         {
-            winner = 'X';
+            winner = 'O';
         }
         else if (isWin(pBoard) == 1)
         {
-            winner = 'O';
+            winner = 'X';
         }
         else
         {
@@ -71,7 +60,6 @@ int main()
         {
             break;
         }
-        // printBoard(pBoard);
     }
     printBoard(pBoard);
     printWinner(winner);
@@ -200,23 +188,6 @@ void playerMove(char **board, char move)
 }
 void computerMove(char **board, char move)
 {
-    /* srand(time(NULL));
-    int x, y;
-
-    if (hasEmptySpace(board))
-    {
-        do
-        {
-            x = rand() % 3;
-            y = rand() % 3;
-        } while (board[x][y] != ' ');
-        board[x][y] = move;
-    }
-    else
-    {
-        printWinner(' ');
-    }*/
-
     int i, j;
     int row, col;
     int score;
@@ -244,19 +215,18 @@ void computerMove(char **board, char move)
 }
 int minimax(char **board, int currentPlayer)
 {
-    if (isWin(board) == 2)
+    if (isWin(board) == 2 && hasEmptySpace(board) == 0)
     {
         return 1;
     }
-    else if (isWin(board) == 1)
+    else if (isWin(board) == 1 && hasEmptySpace(board) == 0)
     {
         return -1;
     }
-    else
+    else if (isWin(board) == 0 && hasEmptySpace(board) == 0)
     {
         return 0;
     }
-
     int i, j;
     int score;
     int bestscore;
