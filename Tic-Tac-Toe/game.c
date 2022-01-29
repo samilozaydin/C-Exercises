@@ -215,11 +215,11 @@ void computerMove(char **board, char move)
 }
 int minimax(char **board, int currentPlayer)
 {
-    if (isWin(board) == 2 && hasEmptySpace(board) == 0)
+    if (isWin(board) == 2)
     {
         return 1;
     }
-    else if (isWin(board) == 1 && hasEmptySpace(board) == 0)
+    else if (isWin(board) == 1)
     {
         return -1;
     }
