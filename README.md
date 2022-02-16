@@ -1,2 +1,3 @@
 # C-Exercises
- I use this repo to storage my exercises
+ I use this repo to storage my exercises.<hr>
+ It include examples in different subject and they can be apart from each other. Some of them are my projects progress, coding trials, lecture examples, personal trials etc... 
